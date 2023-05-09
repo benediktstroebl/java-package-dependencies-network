@@ -1,0 +1,20 @@
+```{r}
+library(igraph)
+library(sna)
+library(tsna)
+library(ndtv)
+
+```
+
+```{r}
+g_nontemp <- read_graph("data/maven_nontemp.gml", format=c("gml"))
+g_temp <- read_graph("data/maven_temp.gml", format=c("gml"))
+```
+
+
+```{r}
+hrg <- fit_hrg(g_nontemp)
+```
+
+
+

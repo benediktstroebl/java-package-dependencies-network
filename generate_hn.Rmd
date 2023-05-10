@@ -1,0 +1,38 @@
+
+
+```{r}
+library(igraph)
+```
+
+
+```{r}
+#' This adds the gadd graph to the main graph, g, and wires all of its vertices
+#' to the central vertex of g
+attach_to_center <- function(g, gadd) {
+  g <- g + gadd + edges(as.vector(rbind(1, gorder(g) + 1:gorder(gadd))))
+}
+
+nIter <- 6
+nChild <- 4
+
+# The initial graph
+g <- make_empty_graph(5, directed = TRUE) + edges(1,2,1,3,1,4,1,5,2,3,3,4,4,5,5,2)
+
+for (j in 1:nIter) {
+  g0 <- g
+  for (i in 1:nChild) {
+    g <- attach_to_center(g, g0)
+  }
+}
+
+g <- reverse_edges(g, eids = E(g))
+```
+
+
+```{r}
+write_graph(
+  g,
+  "data/random_hn.gml",
+  format = c("gml"))
+```
+
